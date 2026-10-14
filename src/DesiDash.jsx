@@ -571,34 +571,24 @@ export default function DesiDash() {
             lineHeight: "1.4",
             textAlign: "center",
             color: "#ffffff",
-            WebkitTextStroke: ".2px #d4d4d4",
             padding: "4px 6px 4px 6px",
             borderRadius: "10px",
-            background: "#0000007d",
+            fontSize: "10px",
+            fontFamily: "Montserrat, sans-serif",
+            fontOpticalSizing: "auto",
+            fontStyle: "normal",
           }}
         >
           <span
             style={{
-              fontSize: "25px",
+              fontSize: "15px",
               color: "#ff0000",
-              WebkitTextStroke: "0px",
-              fontFamily: "Black Ops One, system-ui",
-              fontWeight: 400,
-              fontStyle: "normal",
+              fontWeight: "bold",
             }}
           >
             DYFI HOSDURG
           </span>
-          <br />{" "}
-          <span
-            style={{
-              fontFamily: "Black Ops One, system-ui",
-              fontWeight: "normal",
-              fontStyle: "normal",
-            }}
-          >
-            MEGHALA COMMITTEE
-          </span>{" "}
+          <br /> <span style={{}}>MEGHALA COMMITTEE</span>{" "}
         </p>
         <p
           style={{
