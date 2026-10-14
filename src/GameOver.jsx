@@ -1,4 +1,13 @@
+import { useEffect } from "react";
+import moiXHitler from "./assets/images.png";
+import { playGameOver, stopGameOver } from "./sounds";
+
 export default function GameOver({ score, highScore, onRestart }) {
+  useEffect(() => {
+    playGameOver(); // 4. game over music
+
+    return () => stopGameOver(); // stops when Play Again is pressed
+  }, []);
   return (
     <div
       style={{
@@ -9,22 +18,21 @@ export default function GameOver({ score, highScore, onRestart }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 14,
-        padding: 20,
+        padding: 30,
         boxSizing: "border-box",
         background: "rgba(15, 15, 20, 0.88)",
         color: "#fff",
         textAlign: "center",
         fontFamily: "Georgia, serif",
-        lineHeight: 1.4,
+        lineHeight: 1.2,
       }}
     >
       <div>
         <div>
           <img
-            style={{ width: "100px", height: "100px", objectFit: "fill" }}
+            style={{ width: "50px", height: "50px", objectFit: "fill" }}
             alt="modiXhitler"
-            src="src/assets/images.png"
+            src={moiXHitler}
           />
         </div>
         <h1
@@ -34,8 +42,8 @@ export default function GameOver({ score, highScore, onRestart }) {
             fontWeight: 600,
             fontStyle: "normal",
             margin: 0,
-            color: "#ff9933",
-            fontSize: "clamp(48px, 10vw, 82px)",
+            color: "#ff0404",
+            fontSize: "clamp(38px, 8vw, 72px)",
           }}
         >
           Game Over!
@@ -43,7 +51,7 @@ export default function GameOver({ score, highScore, onRestart }) {
         <h1
           style={{
             margin: 0,
-            color: "#ff9933",
+            color: "#ff0101",
             fontSize: "clamp(24px, 5vw, 42px)",
           }}
         >
@@ -71,7 +79,7 @@ export default function GameOver({ score, highScore, onRestart }) {
           padding: "12px 26px",
           border: "none",
           borderRadius: 10,
-          background: "#e8590c",
+          background: "#ff0000",
           color: "#fff",
           fontSize: 16,
           fontWeight: "bold",

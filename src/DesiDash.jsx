@@ -3,6 +3,15 @@ import RunningSFI from "./RunningSFI";
 import RunningChaser from "./RunningChaser";
 import RotatePhone from "./RotatePhone";
 import GameOver from "./GameOver";
+import {
+  playBackground,
+  stopBackground,
+  playJump,
+  playEvilLaugh,
+  stopAllSounds,
+} from "./sounds";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const W = 800,
   H = 300,
@@ -12,6 +21,7 @@ const GIRL_X = 330,
 const CHASER_W = 90; // chaser sprite width (canvas px)
 const GAP_START = 100,
   CATCH_SPEED = 3.2; // px per frame the chaser closes in after a hit
+const LAUGH_DELAY = 600;
 const TYPES = [{ e: "🚧", w: 46, h: 40, y: 0 }];
 const pct = (v, of) => `${(v / of) * 100}%`;
 
@@ -32,6 +42,7 @@ const saveHi = (v) => {
 
 const initial = () => ({
   status: "ready", // ready | run | over
+  locked: false, // true while waiting for the laugh to finish
   score: 0,
   speed: 6,
   py: 0,
@@ -75,6 +86,7 @@ export default function DesiDash() {
     });
 
     setGameStatus("run");
+    playBackground(); //background music
   };
 
   const enterFullscreen = async () => {
@@ -142,26 +154,34 @@ export default function DesiDash() {
     const ctx = canvas.getContext("2d");
     const s = game.current;
     let raf;
+    let endTimer;
 
     const start = () => {
       const hi = s.hi;
       Object.assign(s, initial(), { status: "run", hi });
       setGameStatus("run");
+      playBackground(); // 1. background music
     };
 
     const finish = () => {
       s.status = "over";
+      s.locked = true; // ignore taps until the game over screen appears
 
       if (s.score > s.hi) {
         s.hi = s.score;
         saveHi(s.hi);
       }
 
-      setGameStatus("over");
+      // wait for the laugh, then show the Game Over screen
+      endTimer = setTimeout(() => {
+        s.locked = false;
+        setGameStatus("over");
+      }, LAUGH_DELAY);
     };
 
     const jump = async () => {
       if (pausedRef.current) return;
+      if (s.locked) return; // laugh is still playing
 
       // First tap: enter fullscreen only.
       if (!document.fullscreenElement) {
@@ -178,6 +198,7 @@ export default function DesiDash() {
       // Subsequent taps: jump.
       if (s.py === 0) {
         s.vy = 14.5;
+        playJump(); // 2. jump sound
       }
     };
 
@@ -251,6 +272,8 @@ export default function DesiDash() {
           ) {
             o.hit = true;
             s.hit = true;
+            stopBackground(); // background stops on hit
+            playEvilLaugh(); // 3. evil laugh
             break;
           }
         }
@@ -408,9 +431,11 @@ export default function DesiDash() {
 
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(endTimer);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       canvas.removeEventListener("pointerdown", onPointerDown);
+      stopAllSounds(); // stop music if the component unmounts
     };
   }, []);
 
@@ -537,6 +562,45 @@ export default function DesiDash() {
             display: "block",
           }}
         />
+        <p
+          style={{
+            position: "absolute",
+            zIndex: "21",
+            top: "10px",
+            left: "10px",
+            lineHeight: "1.4",
+            textAlign: "center",
+          }}
+        >
+          <span
+            style={{ fontSize: "25px", color: "#ff0000", fontWeight: "bold" }}
+          >
+            DYFI HOSDURG
+          </span>{" "}
+          <br /> MEGHALA COMMITTEE
+        </p>
+        <p
+          style={{
+            position: "absolute",
+            zIndex: "15",
+            bottom: "6px",
+            left: "0",
+            right: "0",
+            fontSize: "10px",
+            textAlign: "center",
+          }}
+        >
+          <a
+            style={{
+              cursor: "pointer",
+              color: "#050505be",
+            }}
+            href="https://instagram.com/___stardus_t___?obrf=OXZrbWZ0MDhwaDJh"
+            target="_blank"
+          >
+            <FontAwesomeIcon icon={faInstagram} /> ___stardus_t___
+          </a>
+        </p>
 
         {/* Chaser (behind) */}
         <div
