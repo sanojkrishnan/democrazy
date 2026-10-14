@@ -59,17 +59,17 @@ export default function GameOver({ score, highScore, onRestart }) {
         </h1>
       </div>
 
-      <p style={{ margin: 0, fontSize: 18 }}>The chaser caught you!</p>
+      <p style={{ margin: 0, fontSize: 18 }}>The fascist caught you!</p>
 
       <div style={{ display: "flex", gap: 32, margin: "8px 0" }}>
         <div>
           <div style={{ fontSize: 13, opacity: 0.7 }}>YOUR SCORE</div>
-          <strong style={{ fontSize: 28 }}>{score}</strong>
+          <strong style={{ fontSize: 28 }}>{Math.floor(score)}</strong>
         </div>
 
         <div>
           <div style={{ fontSize: 13, opacity: 0.7 }}>BEST SCORE</div>
-          <strong style={{ fontSize: 28 }}>{highScore}</strong>
+          <strong style={{ fontSize: 28 }}>{Math.floor(highScore)}</strong>
         </div>
       </div>
 

@@ -570,14 +570,35 @@ export default function DesiDash() {
             left: "10px",
             lineHeight: "1.4",
             textAlign: "center",
+            color: "#ffffff",
+            WebkitTextStroke: ".2px #d4d4d4",
+            padding: "4px 6px 4px 6px",
+            borderRadius: "10px",
+            background: "#0000007d",
           }}
         >
           <span
-            style={{ fontSize: "25px", color: "#ff0000", fontWeight: "bold" }}
+            style={{
+              fontSize: "25px",
+              color: "#ff0000",
+              WebkitTextStroke: "0px",
+              fontFamily: "Black Ops One, system-ui",
+              fontWeight: 400,
+              fontStyle: "normal",
+            }}
           >
             DYFI HOSDURG
+          </span>
+          <br />{" "}
+          <span
+            style={{
+              fontFamily: "Black Ops One, system-ui",
+              fontWeight: "normal",
+              fontStyle: "normal",
+            }}
+          >
+            MEGHALA COMMITTEE
           </span>{" "}
-          <br /> MEGHALA COMMITTEE
         </p>
         <p
           style={{
@@ -593,7 +614,7 @@ export default function DesiDash() {
           <a
             style={{
               cursor: "pointer",
-              color: "#050505be",
+              color: "#f6f6f6bb",
             }}
             href="https://instagram.com/___stardus_t___?obrf=OXZrbWZ0MDhwaDJh"
             target="_blank"
