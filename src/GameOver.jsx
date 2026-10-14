@@ -23,7 +23,7 @@ export default function GameOver({ score, highScore, onRestart }) {
         background: "rgba(15, 15, 20, 0.88)",
         color: "#fff",
         textAlign: "center",
-        fontFamily: "Georgia, serif",
+        fontFamily: "Gelasio, Georgia, serif",
         lineHeight: 1.2,
       }}
     >
